@@ -105,6 +105,18 @@ Start minikube with kubeadm and Calico cni
 ./minikube-cni.sh
 ```
 
+Install Calico
+```
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/etcd.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/rbac.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.3/getting-started/kubernetes/installation/hosted/calico.yaml
+```
+
+Check that all system pods are up and running
+```
+kubectl get pods -n kube-system
+```
+
 Deploy the app
 ```
 kebectl create -f app3/deployment2.yml
