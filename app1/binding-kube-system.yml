@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: elx:podsecuritypolicy:kube-system
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+#  kind: Role
+  kind: ClusterRole
+#  name: elx:podsecuritypolicy:unprivileged
+  name: elx:podsecuritypolicy:privileged
+subjects:
+- kind: Group
+  # All service accounts in the kube-system namespace are allowed to use this.
+  name: system:serviceaccounts:kube-system
+  apiGroup: rbac.authorization.k8s.io
