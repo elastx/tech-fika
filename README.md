@@ -10,6 +10,16 @@ Check minikube ip address
 minkube ip
 ```
 
+Check minikube logs
+```
+minkube logs
+```
+
+Login to minikube VM (just if you are curious, you should not need to)
+```
+minkube ssh
+```
+
 Kubectl auto complete
 ```
 source <(kubectl completion bash)
@@ -146,4 +156,31 @@ curl YOUR_MINIKUBE_IP:YOUR_NODE_PORT
 ## Image trust
 
 # APP6
-## Application autiting
+## Runtime Security
+
+Install Helm client
+https://github.com/helm/helm/releases
+
+Install Tiller
+```
+kubectl create -f app6/rbac-config.yaml
+helm init --service-account tiller
+```
+
+Install Falco
+```
+helm install --name falco --namespace falco -f app6/values.yaml stable/falco
+```
+
+Install with sample events generator
+```
+helm install --name falco --namespace falco -f app6/values.yaml --set fakeEventGenerator.enabled=true stable/falco
+```
+
+Install with custom rule sets
+```
+git clone [https://github.com/draios/falco-extras.git](https://github.com/draios/falco-extras.git)
+cd falco-extras
+./scripts/rules2helm rules/rules-traefik.yaml rules/rules-redis.yaml > custom-rules.yaml
+helm install --name falco -f custom-rules.yaml stable/falco
+```
