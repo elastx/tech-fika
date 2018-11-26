@@ -3,7 +3,7 @@ ELASTX Cloud Native Security Tech-Fika
  
 We assume that you have some basic Kubenetes knowledge.
 
-# TIPS
+# Goodies
 
 Check minikube ip address
 ```
@@ -13,11 +13,6 @@ minikube ip
 Check minikube logs
 ```
 minikube logs
-```
-
-Login to minikube VM (just if you are curious, you should not need to)
-```
-minikube ssh
 ```
 
 Kubectl auto complete
@@ -177,9 +172,8 @@ sed -i 's/^#//g' app4/Dockerfile
 docker build -t app4 app4
 ```
 
-
 # APP5
-## Image trust
+## Hardening Kubernetes
 
 # APP6
 ## Runtime Security
@@ -210,3 +204,6 @@ cd falco-extras
 ./scripts/rules2helm rules/rules-traefik.yaml rules/rules-redis.yaml > custom-rules.yaml
 helm install --name falco -f custom-rules.yaml stable/falco
 ```
+
+# APP7
+## Image trust
