@@ -150,7 +150,33 @@ curl YOUR_MINIKUBE_IP:YOUR_NODE_PORT
 ```
 
 # APP4
-## Kubernetes Security check
+## Image Security check
+Login to minikube VM
+```
+minikube ssh
+```
+
+Download Dockerfile
+```
+curl --create-dirs -o app4/Dockerfile https://raw.githubusercontent.com/elastx/tech/master/app4/Dockerfile
+```
+
+Build image
+```
+docker build -t app4 app4
+```
+
+Take a look at the Dockerfile
+```
+cat app4/Dockerfile
+```
+
+Add microscanner and rebuild image
+```
+sed -i 's/^#//g' app4/Dockerfile
+docker build -t app4 app4
+```
+
 
 # APP5
 ## Image trust
