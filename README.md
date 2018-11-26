@@ -158,7 +158,7 @@ minikube ssh
 
 Download Dockerfile
 ```
-curl --create-dirs -o app4/Dockerfile https://raw.githubusercontent.com/elastx/tech/master/app4/Dockerfile
+curl --create-dirs -o app4/Dockerfile https://raw.githubusercontent.com/elastx/tech-fika/master/app4/Dockerfile
 ```
 
 Build image
