@@ -16,7 +16,7 @@ source <(kubectl completion bash)
 ```
 
 # APP1
-## Enable Admission controller
+## Enable Admission Controller
 
 Clear your existing minikube
 ```
@@ -126,3 +126,12 @@ Test to connect again
 ```
 curl YOUR_MINIKUBE_IP:YOUR_NODE_PORT
 ```
+
+# APP4
+## Kubernetes Security check
+
+# APP5
+## Image trust
+
+# APP6
+## Application autiting
