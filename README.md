@@ -7,17 +7,17 @@ We assume that you have some basic Kubenetes knowledge.
 
 Check minikube ip address
 ```
-minkube ip
+minikube ip
 ```
 
 Check minikube logs
 ```
-minkube logs
+minikube logs
 ```
 
 Login to minikube VM (just if you are curious, you should not need to)
 ```
-minkube ssh
+minikube ssh
 ```
 
 Kubectl auto complete
