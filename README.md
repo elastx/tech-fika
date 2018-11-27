@@ -82,6 +82,8 @@ kubectl create -f app2/service2.yml
 Check status
 ```
 kubectl get deployment -n app2
+kubectl describe deployment app2 -n app2
+kubectl get events -n app2
 ```
 
 Add Pod Security Policies, Roles and Role Bindings
@@ -101,6 +103,7 @@ Check status
 ```
 kubectl get deployment -n app2
 kubectl describe pod YOUR_POD_NAME -n app2
+kubectl get events -n app2
 ```
 
 Try to fix the deployment so it will pass the PSP
@@ -161,13 +164,14 @@ kubectl create -f app3/np-denyingress.yml
 
 Test to connect again (should now timeout)
 ```
-curl $YOUR_MINIKUBE_IP:SERVICE_NODE_PORT
+curl YOUR_MINIKUBE_IP:SERVICE_NODE_PORT
 ```
 
 Test connectivity
 ```
 kubectl run -n app3 -l env=client --rm -i -t --image=centos test-$RANDOM -- sh
 ping 8.8.8.8
+curl YOUR_MINIKUBE_IP:SERVICE_NODE_PORT
 ```
 
 Apply Default Egress Deny Network Policy
