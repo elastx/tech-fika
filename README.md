@@ -70,7 +70,7 @@ kubectl create ns app2
 
 Deploy app and service
 ```
-kebectl create -f app2/deployment2.yml
+kubectl create -f app2/deployment2.yml
 kubectl create -f app2/service2.yml
 ```
 
@@ -81,15 +81,15 @@ kubectl get deployment -n app2
 
 Add Pod Security Policies, Roles and Role Bindings
 ```
-kebectl create -f app2/psp-app2.yml
-kebectl create -f app2/rola-app2.yml
-kebectl create -f app2/bind-app2.yml
+kubectl create -f app2/psp-app2.yml
+kubectl create -f app2/rola-app2.yml
+kubectl create -f app2/bind-app2.yml
 ```
 
 Try to deploy again
 ```
 kubectl delete deployment app2 -n app2
-kebectl create -f app2/deployment2.yml
+kubectl create -f app2/deployment2.yml
 ```
 
 Check status
@@ -102,7 +102,7 @@ Try to fix the deployment so it will pass the PSP
 ```
 vi app2/deployment2.yml
 kubectl delete deployment app2 -n app2
-kebectl create -f app2/deployment2.yml
+kubectl create -f app2/deployment2.yml
 ```
 
 
