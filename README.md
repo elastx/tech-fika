@@ -20,6 +20,11 @@ Kubectl auto complete
 source <(kubectl completion bash)
 ```
 
+Windows (git-bash) kubectl run/exec TTY fix
+```
+winpty kubectl run --rm -i -t --image=centos centos -- sh
+```
+
 # APP1
 ## Enable Admission Controller
 

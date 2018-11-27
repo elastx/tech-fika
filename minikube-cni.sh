@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 minikube start --bootstrapper kubeadm --network-plugin cni --extra-config=kubelet.network-plugin=cni
 
 echo "Install Calico by running the following commands"
