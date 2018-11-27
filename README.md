@@ -35,7 +35,6 @@ winpty kubectl run --rm -i -t --image=centos centos -- sh
 
 Clear your existing minikube
 ```
-minikube stop
 minikube delete
 ```
 
@@ -119,7 +118,6 @@ kubectl create -f app2/deployment2.yml
 
 Clear your existing minikube
 ```
-minikube stop
 minikube delete
 ```
 
