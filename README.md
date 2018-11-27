@@ -257,14 +257,16 @@ Start minikube with kubeadm
 ./minikube.sh
 ```
 
-Test Master API
+Test Master API using kubectl
 ```
 kubectl run --rm -i -t kube-bench-master --image=aquasec/kube-bench:latest --restart=Never --overrides="{ \"apiVersion\": \"v1\", \"spec\": { \"hostPID\": true, \"nodeSelector\": { \"node-role.kubernetes.io/master\": \"\" }, \"tolerations\": [ { \"key\": \"node-role.kubernetes.io/master\", \"operator\": \"Exists\", \"effect\": \"NoSchedule\" } ] } }" -- master --version 1.11
 ```
 
-Test worker node config
+Login to minikube and run kube-bench locally on worker node (to gain access to system files for permission checks)
 ```
-kubectl run --rm -i -t kube-bench-node --image=aquasec/kube-bench:latest --restart=Never --overrides="{ \"apiVersion\": \"v1\", \"spec\": { \"hostPID\": true } }" -- node --version 1.11
+minikube ssh
+docker run --rm -v `pwd`:/host aquasec/kube-bench:latest install
+./kube-bench node
 ```
 
 # APP6
