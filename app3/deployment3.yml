@@ -12,12 +12,12 @@ spec:
     metadata:
       labels:
         app: app3
+        env: demo
     spec:
       containers:
-      - name: app3
-        image: nginxdemos/hello:plain-text
-#        image: nginxinc/nginx-unprivileged
-        ports:
-        - containerPort: 80
-        securityContext:
-          privileged: true
+        - name: app3
+          image: nginxdemos/hello:plain-text
+          ports:
+            - containerPort: 80
+          securityContext:
+            privileged: true

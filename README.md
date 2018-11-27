@@ -1,6 +1,6 @@
 # Tech-Fika
 ELASTX Cloud Native Security Tech-Fika
- 
+
 We assume that you have some basic Kubenetes knowledge.
 
 # Goodies
@@ -32,6 +32,11 @@ minikube delete
 Start minikube with kubeadm
 ```
 ./minikube.sh
+```
+
+Create namespace
+```
+kubectl create ns app1
 ```
 
 Add Pod Security Policies, Roles and Role Bindings
@@ -105,7 +110,7 @@ minikube stop
 minikube delete
 ```
 
-Start minikube with kubeadm and Calico cni
+Start minikube with kubeadm and Calico CNI
 ```
 ./minikube-cni.sh
 ```
@@ -122,27 +127,84 @@ Check that all system pods are up and running
 kubectl get pods -n kube-system
 ```
 
+Create namespace
+```
+kubectl create ns app3
+```
+
 Deploy the app
 ```
-kebectl create -f app3/deployment2.yml
-kubectl create -f app3/service2.yml
+kubectl create -f app3/deployment3.yml
+kubectl create -f app3/service3.yml
 ```
 
 Test to connect to the app
 ```
 kubectl describe svc app3-svc -n app3
-curl YOUR_MINIKUBE_IP:YOUR_NODE_PORT
+curl YOUR_MINIKUBE_IP:SERVICE_NODE_PORT
 ```
 
-Apply Network Policy
+Apply Default Ingress Deny Network Policy
 ```
 kubectl create -f app3/np-denyingress.yml
 ```
 
-Test to connect again
+Test to connect again (should now timeout)
 ```
-curl YOUR_MINIKUBE_IP:YOUR_NODE_PORT
+curl $YOUR_MINIKUBE_IP:SERVICE_NODE_PORT
 ```
+
+Test connectivity
+```
+kubectl run -n app3 -l env=client --rm -i -t --image=centos test-$RANDOM -- sh
+ping 8.8.8.8
+```
+
+Apply Default Egress Deny Network Policy
+```
+kubectl create -f app3/np-denyegress.yml
+```
+
+Test connectivity after policy
+```
+kubectl run -n app3 -l env=client --rm -i -t --image=centos test-$RANDOM -- sh
+ping 8.8.8.8
+```
+
+Apply Allow Google DNS Egress Policy
+```
+kubectl create -f app3/np-allow_egress_googledns.yml
+```
+
+Test connectivity after policy
+```
+kubectl run -n app3 -l env=client --rm -i -t --image=centos test-$RANDOM -- sh
+ping 8.8.8.8
+curl YOUR_MINIKUBE_IP:SERVICE_NODE_PORT
+```
+
+Apply Allow Ingress Clients
+```
+kubectl create -f app3/np-allow_ingress_clients.yml
+```
+
+Test connectivity after policy
+```
+kubectl run -n app3 -l env=client --rm -i -t --image=centos test-$RANDOM -- sh
+curl YOUR_MINIKUBE_IP:SERVICE_NODE_PORT
+```
+
+Apply Allow Egress Clients to app
+```
+kubectl create -f app3/np-allow_egress_clients.yml
+```
+
+Test connectivity after policy
+```
+kubectl run -n app3 -l env=client --rm -i -t --image=centos test-$RANDOM -- sh
+curl YOUR_MINIKUBE_IP:SERVICE_NODE_PORT
+```
+
 
 # APP4
 ## Image Security check
@@ -174,6 +236,22 @@ docker build -t app4 app4
 
 # APP5
 ## Hardening Kubernetes
+Run CIS benchmarks with kube-bench
+
+Start minikube with kubeadm
+```
+./minikube.sh
+```
+
+Test Master API
+```
+kubectl run --rm -i -t kube-bench-master --image=aquasec/kube-bench:latest --restart=Never --overrides="{ \"apiVersion\": \"v1\", \"spec\": { \"hostPID\": true, \"nodeSelector\": { \"node-role.kubernetes.io/master\": \"\" }, \"tolerations\": [ { \"key\": \"node-role.kubernetes.io/master\", \"operator\": \"Exists\", \"effect\": \"NoSchedule\" } ] } }" -- master --version 1.11
+```
+
+Test worker node config
+```
+kubectl run --rm -i -t kube-bench-node --image=aquasec/kube-bench:latest --restart=Never --overrides="{ \"apiVersion\": \"v1\", \"spec\": { \"hostPID\": true } }" -- node --version 1.11
+```
 
 # APP6
 ## Runtime Security

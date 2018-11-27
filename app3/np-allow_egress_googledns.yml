@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-google-dns
+  namespace: app3
+spec:
+  podSelector:
+    matchLabels:
+      env: client
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+      - ipBlock:
+          cidr: 8.8.8.8/32
