@@ -57,7 +57,7 @@ minikube stop
 
 Verify that all system pods are started
 ```
-kubectl get bod -n kube-system
+kubectl get pod -n kube-system
 ```
 
 # APP2
