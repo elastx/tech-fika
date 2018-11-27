@@ -1,3 +1,4 @@
+---
 apiVersion: extensions/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -13,4 +14,4 @@ spec:
   supplementalGroups:
     rule: RunAsAny
   volumes:
-  - '*'
+    - '*'

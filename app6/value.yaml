@@ -1,7 +1,7 @@
+---
 falco:
   jsonOutput: true
   jsonIncludeOutputProperty: true
-
   programOutput:
     enabled: true
     program: "jq '{text: .output}' | curl -d @- -X POST [https://hooks.slack.com/services/see_your_slack_team/apps_settings_for/a_webhook_url](https://hooks.slack.com/services/see_your_slack_team/apps_settings_for/a_webhook_url)"

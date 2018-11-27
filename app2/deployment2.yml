@@ -1,3 +1,4 @@
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -14,11 +15,11 @@ spec:
         app: app2
     spec:
       containers:
-      - name: app2
-        image: nginxdemos/hello:plain-text
-#        image: nginxinc/nginx-unprivileged
-        ports:
-        - containerPort: 80
-#        - containerPort: 8080
-        securityContext:
-          privileged: true
+        - name: app2
+          image: nginxdemos/hello:plain-text
+#          image: nginxinc/nginx-unprivileged
+          ports:
+            - containerPort: 80
+#            - containerPort: 8080
+          securityContext:
+            privileged: true
