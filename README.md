@@ -15,6 +15,11 @@ Check minikube logs
 minikube logs
 ```
 
+Check that minikube cluster is ok (should return 10 when cluster is up)
+```
+kubectl get pods -n kube-system | grep Running  | wc -l
+```
+
 Kubectl auto complete
 ```
 source <(kubectl completion bash)
