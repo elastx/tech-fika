@@ -1,7 +1,7 @@
 # Tech-Fika
 ELASTX Cloud Native Security Tech-Fika
 
-We assume that you have some basic Kubenetes knowledge.
+We assume that you have some basic Kubernetes knowledge.
 
 # Goodies
 
